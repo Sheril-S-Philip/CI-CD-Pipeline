@@ -13,11 +13,13 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
 
-      - name: Change script permissions
-        run: chmod +x ./gradlew
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
 
       - name: Run Lint
-        run: ./gradlew lintDebug
+        run: gradle lintDebug
 
       - name: Upload html test report
         uses: actions/upload-artifact@v3
