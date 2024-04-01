@@ -19,17 +19,10 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          sdk-platform: 'android-33'
-          sdk-components: 'platform-tools,emulator'
-          sdk-build-tools: '34.0.0'
-
       - name: Run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 33
+          api-level: 29
           script: gradle connectedCheck
 
       - name: Upload test report
