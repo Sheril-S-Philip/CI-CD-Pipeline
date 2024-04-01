@@ -16,7 +16,8 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          distribution: 'adopt' # or 'temurin' or 'zulu', choose according to your preference
+          java-version: '11'   # Adjust the Java version as needed
 
       - name: Run Lint
         run: gradle lintDebug
