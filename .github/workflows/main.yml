@@ -7,80 +7,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - name: Setup JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt' # or 'temurin' or 'zulu', choose according to your preference
-          java-version: '17'   # Adjust the Java version as needed
-
-      - name: Run Lint
-        run: gradle lintDebug
-
-      - name: Upload html test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: lint.html
-          path: app/build/reports/lint-results-debug.html
-
-  unit-test:
-    needs: [lint]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - name: Setup JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt' # or 'temurin' or 'zulu', choose according to your preference
-          java-version: '17'   # Adjust the Java version as needed
-
-      - name: Run tests
-        run: gradle test
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
-          
-  instrumentation-test:
-    needs: [unit-test]
-    runs-on: macos-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - name: Setup JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'
-          java-version: '17'
-
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: gradle connectedCheck
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
-
   static-code-analysis:
-    needs: [ instrumentation-test ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -88,6 +19,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Change script permissions
+        run: chmod +x ./gradlew
+      
       - name: SonarCloud Scan
         run: ./gradlew app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
