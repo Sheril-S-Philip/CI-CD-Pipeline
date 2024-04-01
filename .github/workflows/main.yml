@@ -41,8 +41,8 @@ jobs:
             distribution: 'adopt' # or 'temurin' or 'zulu', choose according to your preference
             java-version: '17'   # Adjust the Java version as needed
 
-        - name: Run Lint
-          run: gradle lintDebug
+        - name: Run tests
+          run: gradle test
 
         - name: Upload test report
           uses: actions/upload-artifact@v3
