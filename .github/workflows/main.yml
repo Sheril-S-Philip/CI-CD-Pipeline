@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  
   instrumentation-test:
     runs-on: macos-latest
     steps:
@@ -38,3 +37,4 @@ jobs:
         with:
           name: instrumentation_test_report
           path: app/build/reports/androidTests/connected/
+  
