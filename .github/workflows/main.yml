@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android/setup-android@v2
+        uses: android-actions/setup-android@v3
         with:
           sdk-platform: 'android-33'
           sdk-components: 'platform-tools,emulator'
