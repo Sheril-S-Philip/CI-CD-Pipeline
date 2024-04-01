@@ -60,8 +60,12 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'adopt' # or 'temurin' or 'zulu', choose according to your preference
-          java-version: '17'   # Adjust the Java version as needed
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Install Android SDK components
+        run: |
+          sdkmanager --install 'build-tools;34.0.0' 'platform-tools' 'emulator' 'system-images;android-33;default;x86'
 
       - name: Run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
