@@ -19,6 +19,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Change script permissions
+        run: chmod +x ./gradlew
+      
       - name: SonarCloud Scan
         run: ./gradlew app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
