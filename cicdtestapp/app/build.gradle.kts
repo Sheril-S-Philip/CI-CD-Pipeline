@@ -4,6 +4,16 @@ plugins {
     id("org.sonarqube") version "5.0.0.4638"
 }
 
+sonar {
+    properties {
+        property("sonar.sources","./src/main")
+        property("sonar.projectKey", "Sheril-S-Philip_CI-CD-Pipeline")
+        property("sonar.organization", "Sheril-S-Philip")
+        property("sonar.host.url", "https://sonarcloud.io/")
+        property("projectName","CI-CD-Pipeline")
+    }
+}
+
 android {
     namespace = "com.example.ci_cd_test_app"
     compileSdk = 34
